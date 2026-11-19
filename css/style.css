@@ -657,6 +657,7 @@ footer a { color: rgba(255,255,255,0.6); }
 footer a:hover { color: var(--mint); }
 
 .footer-social { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 0.6rem; }
+.footer-social span { text-transform: uppercase; letter-spacing: 0.08em; }
 .footer-social a { display: inline-flex; color: rgba(255,255,255,0.75); }
 .footer-social a:hover { color: var(--mint); }
 
