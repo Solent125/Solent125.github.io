@@ -196,17 +196,19 @@ nav {
 }
 
 .team-card img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 4/5;
   object-fit: cover;
-  border-radius: 50%;
+  object-position: center 25%;
+  border-radius: 16px;
   margin: 0 auto 1rem;
-  border: 4px solid var(--mint);
-  transition: border-color 0.25s, transform 0.25s;
+  box-shadow: 0 6px 20px rgba(45,51,72,0.10);
+  transition: box-shadow 0.25s, transform 0.25s;
 }
 
 .team-card:hover img {
-  border-color: var(--teal);
+  box-shadow: 0 10px 28px rgba(45,51,72,0.18);
   transform: translateY(-4px);
 }
 
@@ -519,6 +521,16 @@ nav {
   color: var(--grey-text);
   margin-left: 0.5rem;
 }
+
+.testimonial p + p { padding-top: 0; }
+
+.testimonial cite .t-contact {
+  display: block;
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+}
+
+.testimonial cite .t-contact a { color: var(--teal); text-decoration: underline; }
 
 /* ===== PARTNERS ===== */
 .partners {
