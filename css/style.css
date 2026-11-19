@@ -196,19 +196,17 @@ nav {
 }
 
 .team-card img {
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 4/5;
+  width: 260px;
+  height: 260px;
   object-fit: cover;
-  object-position: center 25%;
-  border-radius: 16px;
+  border-radius: 50%;
   margin: 0 auto 1rem;
-  box-shadow: 0 6px 20px rgba(45,51,72,0.10);
-  transition: box-shadow 0.25s, transform 0.25s;
+  border: 4px solid var(--mint);
+  transition: border-color 0.25s, transform 0.25s;
 }
 
 .team-card:hover img {
-  box-shadow: 0 10px 28px rgba(45,51,72,0.18);
+  border-color: var(--teal);
   transform: translateY(-4px);
 }
 
