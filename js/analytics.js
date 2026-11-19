@@ -87,12 +87,43 @@
       };
     }
 
-    // Count contact form submissions as a lead in GA
+    // Count contact form submissions as a lead in GA.
+    // Wait (max 1 second) for the event to be sent before leaving the page.
     var form = document.querySelector('form[action*="formspree"]');
     if (form) {
-      form.addEventListener('submit', function () {
-        gtag('event', 'generate_lead', { form_name: 'contact' });
+      form.addEventListener('submit', function (e) {
+        if (form.dataset.sent) return;
+        e.preventDefault();
+        var done = false;
+        function go() { if (done) return; done = true; form.dataset.sent = '1'; form.submit(); }
+        gtag('event', 'generate_lead', {
+          form_name: 'contact',
+          transport_type: 'beacon',
+          event_callback: go,
+          event_timeout: 1000
+        });
+        setTimeout(go, 1200);
       });
     }
+
+    // Count clicks on Solent's phone, WhatsApp, email and social links
+    // (clicks on clients' own contacts in testimonials are not counted)
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || a.closest('.testimonial')) return;
+      var href = a.getAttribute('href') || '';
+      var name = null, params = { link_url: href, page: location.pathname };
+      if (/^tel:/i.test(href)) name = 'click_phone';
+      else if (/wa\.me\/|api\.whatsapp\.com/i.test(href)) name = 'click_whatsapp';
+      else if (/^mailto:info@solentconsultancy\.com/i.test(href)) name = 'click_email';
+      else if (/instagram\.com|facebook\.com/i.test(href)) {
+        name = 'click_social';
+        params.network = /instagram/i.test(href) ? 'instagram' : 'facebook';
+      }
+      if (name) {
+        params.transport_type = 'beacon';
+        gtag('event', name, params);
+      }
+    }, true);
   });
 })();
